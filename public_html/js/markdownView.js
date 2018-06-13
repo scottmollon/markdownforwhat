@@ -3,16 +3,45 @@ function MarkDownViewModel() {
   
     var self = this;
     
+    //html -> markdown
     var turndownService = new TurndownService({
         headingStyle: 'atx'
     });
     
+    //markdown -> html
+    var showdownService = new showdown.Converter();
+    
+    //html input observables
     self.htmlinput = ko.observable();
     self.htmlinput.subscribe(function() {
         self.mdoutput(turndownService.turndown(self.htmlinput()));
     });
     
+    //markdown output observables
     self.mdoutput = ko.observable();
+    
+    //load markdown file
+    self.mdfile = ko.observable();
+    self.mdfile.subscribe(function() {
+        
+        loadMdFile();
+    });
+    
+    var loadMdFile = function() {
+        
+        var reader = new FileReader();
+        
+        reader.onload = function() {
+           
+            var markdown = reader.result;
+            var newHtml = showdownService.makeHtml(markdown);
+            
+            $('.nicEdit-main').html(newHtml);
+            
+        };
+        
+        reader.readAsText($('#uploadmd')[0].files[0]);
+    };
     
 };
 
