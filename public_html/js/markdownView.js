@@ -26,6 +26,7 @@ function MarkDownViewModel() {
         
         loadMdFile();
     });
+    self.mdfilename = ko.observable('');
     
     var loadMdFile = function() {
         
@@ -40,7 +41,14 @@ function MarkDownViewModel() {
             
         };
         
+        self.mdfilename($('#uploadmd')[0].files[0].name);
         reader.readAsText($('#uploadmd')[0].files[0]);
+    };
+    
+    self.saveMdFile = function() {
+      
+        var blob = new Blob([self.mdoutput()], {type: "text/plain;charset=utf-8"});
+        saveAs(blob, self.mdfilename() ? self.mdfilename() : 'markdown.md');
     };
     
 };

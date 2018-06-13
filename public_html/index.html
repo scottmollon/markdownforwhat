@@ -23,13 +23,14 @@ and open the template in the editor.
                 </div>
                 <div class='col'>
                     <div class='form-group'>
-                        <label for='htmlinput'>MARKDOWN OUTPUT</label>
+                        <label for='htmlinput'>MARKDOWN OUTPUT (<span data-bind="text: mdfilename"></span>)</label>
                         <textarea class='form-control' id='markoutput' data-bind='value: mdoutput' rows='30' readonly></textarea>
                     </div>
                 </div>
                 <div class="col-2">
                     <input type="file" id="uploadmd" accept=".md" data-bind="value: mdfile" style="display: none">
                     <button class="btn btn-primary" onclick="$('#uploadmd').trigger('click')">Open MD file</button>
+                    <br><br><a class="btn btn-primary" data-bind="click: saveMdFile"">Save MD file</a>
                 </div>
             </div>
         </div>
@@ -42,6 +43,7 @@ and open the template in the editor.
         <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.6/showdown.min.js"></script>
         
         <script src='js/nicEdit/nicEdit.js'></script>
+        <script src='js/FileSaver.js'></script>
         <script src='js/markdownView.js'></script>
     </body>
 </html>
