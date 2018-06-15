@@ -26,7 +26,8 @@ function MarkDownViewModel() {
     self.htmlfile = ko.observable();
     self.htmlfile.subscribe(function() {
         
-        loadFile('html');
+        if (self.htmlfile())
+            loadFileFromDisk('html');
     });
     self.htmlfilename = ko.computed(function() {
         return self.originalfilename()? self.originalfilename()+'.html' : '';
@@ -36,13 +37,46 @@ function MarkDownViewModel() {
     self.mdfile = ko.observable();
     self.mdfile.subscribe(function() {
         
-        loadFile('markdown');
+        if (self.mdfile())
+            loadFileFromDisk('markdown');
     });
     self.mdfilename = ko.computed(function() {
         return self.originalfilename()? self.originalfilename()+'.md' : '';
     });
     
-    var loadFile = function(type) {
+    self.clearAll = function() {
+      
+        setHtml();
+        self.originalfilename('');
+    };
+    
+    var setHtml = function(html) {
+        
+        $('.nicEdit-main').html('<br>');
+        
+        if (html)
+            $('.nicEdit-main').html(html);
+        
+    };
+    
+    self.loadFile = function(data, event) {
+        
+        console.log(event.target.id);
+        
+        var inputctrl;
+        if (event.target.id === 'openhtmlbtn') {
+            self.htmlfile('');
+            inputctrl = $('#uploadhtml');
+        }
+        else {
+            self.mdfile('');
+            inputctrl = $('#uploadmd');
+        }
+        
+        inputctrl.trigger('click');
+    };
+    
+    var loadFileFromDisk = function(type) {
         
         var reader = new FileReader();
         
@@ -64,7 +98,7 @@ function MarkDownViewModel() {
             else
                 newHtml = text;
             
-            $('.nicEdit-main').html(newHtml);
+            setHtml(newHtml);
             
         };
         

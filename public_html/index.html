@@ -17,8 +17,10 @@ and open the template in the editor.
             <div class='row'>
                 <div class="col-1">
                     <input type="file" id="uploadhtml" accept=".html" data-bind="value: htmlfile" style="display: none">
-                    <button class="btn btn-primary btn-block" onclick="$('#uploadhtml').trigger('click')">Open HTML file</button>
-                    <br><br><btn class="btn btn-primary btn-block" data-bind="click: saveHTMLFile"">Save HTML file</btn>
+                    
+                    <button class="btn btn-primary btn-block" data-bind="click: clearAll">New File</button>
+                    <button class="btn btn-primary btn-block" id="openhtmlbtn" data-bind="click:loadFile">Open HTML file</button>
+                    <button class="btn btn-primary btn-block" data-bind="click: saveHTMLFile">Save HTML file</button>
                 </div>
                 <div class='col'>
                     <div class='form-group'>
@@ -34,8 +36,9 @@ and open the template in the editor.
                 </div>
                 <div class="col-1">
                     <input type="file" id="uploadmd" accept=".md" data-bind="value: mdfile" style="display: none">
-                    <button class="btn btn-primary btn-block" onclick="$('#uploadmd').trigger('click')">Open MD file</button>
-                    <br><br><button class="btn btn-primary btn-block" data-bind="click: saveMdFile"">Save MD file</button>
+                    
+                    <button class="btn btn-primary btn-block" id="openmdbtn" data-bind="click:loadFile">Open MD file</button>
+                    <button class="btn btn-primary btn-block" data-bind="click: saveMdFile">Save MD file</button>
                 </div>
             </div>
         </div>
