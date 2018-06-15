@@ -1,0 +1,28 @@
+/*
+Taupe: #B2A59F
+Space Blue: #023459
+Caribbean: #1E646E
+Peacock: #002C2F
+*/
+
+body {
+    background-color: #B2A59F;
+}
+
+.nicEdit-main {
+    background-color: whitesmoke;
+}
+
+h3 {
+    color: #002C2F;
+}
+
+.btn-primary {
+    background-color: #023459;
+    border-color: #002C2F;
+}
+
+.btn-primary:hover {
+    background-color: #1E646E;
+    border-color: #002C2F;
+}
