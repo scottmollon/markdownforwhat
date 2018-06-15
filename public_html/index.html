@@ -15,31 +15,41 @@ and open the template in the editor.
     <body>
         <div class='container-fluid'>
             <div class='row'>
-                <div class="col-1">
-                    <input type="file" id="uploadhtml" accept=".html" data-bind="value: htmlfile" style="display: none">
-                    
-                    <button class="btn btn-primary btn-block" data-bind="click: clearAll">New File</button>
-                    <button class="btn btn-primary btn-block" id="openhtmlbtn" data-bind="click:loadFile">Open HTML file</button>
-                    <button class="btn btn-primary btn-block" data-bind="click: saveHTMLFile">Save HTML file</button>
+                <div class='col'>
+                    <h3>HTML (<span data-bind="text: htmlfilename"></span>)</h3>
                 </div>
+                <div class="col-1">
+                    
+                </div>
+                <div class="col">
+                    <h3>MARKDOWN (<span data-bind="text: mdfilename"></span>)</h3>
+                </div>
+            </div>
+            <div class='row'>
+                
                 <div class='col'>
                     <div class='form-group'>
-                        <label for='htmlinput'>HTML INPUT (<span data-bind="text: htmlfilename"></span>)</label>
                         <textarea class='form-control' id='htmltextarea' data-bind='nicedit: htmlinput' rows='30'></textarea>
                     </div>
                 </div>
-                <div class='col'>
-                    <div class='form-group'>
-                        <label for='htmlinput'>MARKDOWN OUTPUT (<span data-bind="text: mdfilename"></span>)</label>
-                        <textarea class='form-control' id='markoutput' data-bind='value: mdoutput' rows='30' readonly></textarea>
-                    </div>
-                </div>
                 <div class="col-1">
-                    <input type="file" id="uploadmd" accept=".md" data-bind="value: mdfile" style="display: none">
+                    <button class="btn btn-primary btn-block" data-bind="click: clearAll">New File</button>
+                    <hr>
+                    <input type="file" id="uploadhtml" accept=".html" data-bind="value: htmlfile" style="display: none">
+                    <button class="btn btn-primary btn-block" id="openhtmlbtn" data-bind="click:loadFile">Open HTML file</button>
+                    <button class="btn btn-primary btn-block" data-bind="click: saveHTMLFile">Save HTML file</button>
+                    <hr>
                     
+                    <input type="file" id="uploadmd" accept=".md" data-bind="value: mdfile" style="display: none">
                     <button class="btn btn-primary btn-block" id="openmdbtn" data-bind="click:loadFile">Open MD file</button>
                     <button class="btn btn-primary btn-block" data-bind="click: saveMdFile">Save MD file</button>
                 </div>
+                <div class='col'>
+                    <div class='form-group'>
+                        <textarea class='form-control' id='markoutput' data-bind='value: mdoutput' rows='30' readonly></textarea>
+                    </div>
+                </div>
+                
             </div>
         </div>
         
