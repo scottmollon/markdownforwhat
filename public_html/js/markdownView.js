@@ -20,35 +20,78 @@ function MarkDownViewModel() {
     //markdown output observables
     self.mdoutput = ko.observable();
     
+    self.originalfilename = ko.observable();
+    
+    //load html file
+    self.htmlfile = ko.observable();
+    self.htmlfile.subscribe(function() {
+        
+        loadFile('html');
+    });
+    self.htmlfilename = ko.computed(function() {
+        return self.originalfilename()? self.originalfilename()+'.html' : '';
+    });
+    
     //load markdown file
     self.mdfile = ko.observable();
     self.mdfile.subscribe(function() {
         
-        loadMdFile();
+        loadFile('markdown');
     });
-    self.mdfilename = ko.observable('');
+    self.mdfilename = ko.computed(function() {
+        return self.originalfilename()? self.originalfilename()+'.md' : '';
+    });
     
-    var loadMdFile = function() {
+    var loadFile = function(type) {
         
         var reader = new FileReader();
         
+        var input, file;
+        if (type === 'markdown')
+            input = '#uploadmd';
+        else
+            input = '#uploadhtml';
+        
+        file = $(input)[0].files[0];
+        
         reader.onload = function() {
            
-            var markdown = reader.result;
-            var newHtml = showdownService.makeHtml(markdown);
+            var text = reader.result;
+            
+            var newHtml;
+            if (type === 'markdown')
+                newHtml = showdownService.makeHtml(text);
+            else
+                newHtml = text;
             
             $('.nicEdit-main').html(newHtml);
             
         };
         
-        self.mdfilename($('#uploadmd')[0].files[0].name);
-        reader.readAsText($('#uploadmd')[0].files[0]);
+        var originalnamearray = file.name.split('.');
+        originalnamearray.pop();
+        self.originalfilename(originalnamearray.join('.'));
+        
+        reader.readAsText(file);
     };
     
     self.saveMdFile = function() {
       
         var blob = new Blob([self.mdoutput()], {type: "text/plain;charset=utf-8"});
-        saveAs(blob, self.mdfilename() ? self.mdfilename() : 'markdown.md');
+        
+        saveFile(blob, self.mdfilename() ? self.mdfilename() : 'markdown.md');
+    };
+    
+    self.saveHTMLFile = function() {
+        
+        var blob = new Blob([self.htmlinput()], {type: "text/plain;charset=utf-8"});
+        
+        saveFile(blob, self.htmlfilename() ? self.htmlfilename() : 'markdown.html');
+    };
+    
+    var saveFile = function(blob, filename) {
+        
+        saveAs(blob, filename);
     };
     
 };
